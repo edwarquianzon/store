@@ -1,30 +1,30 @@
 import React from "react";
 
-const TableContainer = ({ children, props }) => {
+const TableContainer = ({ children, ...props }) => {
   return <table {...props}>{children}</table>;
 };
 
-const THead = ({ children, props }) => {
+const THead = ({ children, ...props }) => {
   return <thead {...props}>{children}</thead>;
 };
 
-const TBody = ({ children, props }) => {
+const TBody = ({ children, ...props }) => {
   return <tbody {...props}>{children}</tbody>;
 };
 
-const TFoot = ({ children, props }) => {
+const TFoot = ({ children, ...props }) => {
   return <tfoot {...props}>{children}</tfoot>;
 };
 
-const Row = ({ children, props }) => {
+const Row = ({ children, ...props }) => {
   return <tr {...props}>{children}</tr>;
 };
 
-const Column = ({ children, props }) => {
+const Column = ({ children, ...props }) => {
   return <td {...props}>{children}</td>;
 };
 
-const ColumnHeader = ({ children, props }) => {
+const ColumnHeader = ({ children, ...props }) => {
   return <th {...props}>{children}</th>;
 };
 

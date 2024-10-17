@@ -10,15 +10,22 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const [query, setQuery] = useState("");
+  const [stockChecked, setStockChecked] = useState(false);
 
-  const [stockChecked, setStockChecked] = useState("");
+  const [sort, setSort] = useState("asc");
 
   useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     // Call the api
     const getProducts = async () => {
       try {
         setLoading(true);
-        const response = await fetch("https://fakestoreapi.com/products");
+        const response = await fetch(
+          `https://fakestoreapi.com/products?sort=${sort}`,
+          { signal }
+        );
+
         const data = await response.json();
         setProducts(data);
 
@@ -31,8 +38,10 @@ function App() {
     getProducts();
 
     // Run when this component is destroyed or unmount
-    return () => {};
-  }, []);
+    return () => {
+      controller.abort();
+    };
+  }, [sort]);
 
   return (
     <FilterProductTable>
@@ -41,6 +50,8 @@ function App() {
         setQuery={setQuery}
         stockChecked={stockChecked}
         setStockChecked={setStockChecked}
+        sort={sort}
+        setSort={setSort}
       />
 
       {!loading ? (

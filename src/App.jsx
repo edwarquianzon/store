@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import FilterProductTable from "./components/FilterProductTable";
-
+// import ProductTable from "./components/ProductTable";
 import SearchBar from "./components/SearchBar";
 import ProductCard from "./components/products/ProductCard";
+
+const headers = ["Sporting Goods", "Electronics"];
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -17,7 +19,7 @@ function App() {
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
-    // Call the api
+    //call the api
     const getProducts = async () => {
       try {
         setLoading(true);
@@ -25,8 +27,8 @@ function App() {
           `https://fakestoreapi.com/products?sort=${sort}`,
           { signal }
         );
-
         const data = await response.json();
+
         setProducts(data);
 
         setLoading(false);
@@ -36,8 +38,7 @@ function App() {
     };
 
     getProducts();
-
-    // Run when this component is destroyed or unmount
+    //run when this component is destroyed or unmount
     return () => {
       controller.abort();
     };
@@ -53,14 +54,14 @@ function App() {
         sort={sort}
         setSort={setSort}
       />
-
       {!loading ? (
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-5">
           {products.map((product) => (
             <ProductCard
               key={`product-${product.id}`}
               imageSrc={product.image}
               name={product.title}
+              id={product.id}
             ></ProductCard>
           ))}
         </div>
